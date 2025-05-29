@@ -3,16 +3,21 @@ package com.example.unittesting.playlist
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.unittesting.R
 import com.example.unittesting.databinding.ItemPlaylistBinding
 
-class PlaylistAdapter(private var list: List<PlaylistModel> = emptyList()): RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
+class PlaylistAdapter(
+    private var list: List<PlaylistModel> = emptyList()
+) : RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
 
     fun submitList(list: List<PlaylistModel>) {
         this.list = list
+        notifyItemRangeChanged(0, this.list.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemPlaylistBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemPlaylistBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -25,11 +30,13 @@ class PlaylistAdapter(private var list: List<PlaylistModel> = emptyList()): Recy
         holder.bind(playlistModel)
     }
 
-    inner class ViewHolder(private val binding: ItemPlaylistBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemPlaylistBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(playlistModel: PlaylistModel) {
             binding.tvName.text = playlistModel.name
             binding.tvCategory.text = playlistModel.category
+            binding.ivPlaylist.setImageResource(R.drawable.ic_playlist)
         }
     }
 }

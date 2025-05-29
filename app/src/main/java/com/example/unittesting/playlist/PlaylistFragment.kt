@@ -11,6 +11,10 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.unittesting.databinding.FragmentPlaylistBinding
 import com.example.unittesting.remote.ApiService
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 /**
  * A simple [Fragment] subclass.
@@ -24,7 +28,13 @@ class PlaylistFragment : Fragment() {
 
     private lateinit var playlistAdapter: PlaylistAdapter
 
-    private val service = PlaylistService(object : ApiService {})
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("http://172.20.10.13:2999/")
+        .client(OkHttpClient())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+    private val api = retrofit.create<ApiService>()
+    private val service = PlaylistService(api)
     private val repository = PlaylistRepository(service)
     private val viewModel: PlaylistViewModel by viewModels { PlaylistViewModelFactory(repository) }
 

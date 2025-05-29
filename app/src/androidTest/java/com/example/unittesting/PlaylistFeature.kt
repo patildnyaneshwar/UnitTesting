@@ -12,6 +12,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.adevinta.android.barista.assertion.BaristaRecyclerViewAssertions
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.adevinta.android.barista.internal.matcher.DrawableMatcher.Companion.withDrawable
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
@@ -50,9 +51,9 @@ class PlaylistFeature {
             .check(matches(withText("rock")))
             .check(matches(isDisplayed()))
 
-//        onView(allOf(withId(R.id.iv_playlist), isDescendantOfA(nthChildOf(withId(R.id.rv_playlist), 0))))
-//            .check(matches(withDrawable(R.drawable.ic_playlist)))
-//            .check(matches(isDisplayed()))
+        onView(allOf(withId(R.id.iv_playlist), isDescendantOfA(nthChildOf(withId(R.id.rv_playlist), 0))))
+            .check(matches(withDrawable(R.drawable.ic_playlist)))
+            .check(matches(isDisplayed()))
 
     }
 

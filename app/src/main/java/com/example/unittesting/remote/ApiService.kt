@@ -5,8 +5,6 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    @GET("/playlist")
-    suspend fun fetchAllPlaylists(): List<PlaylistModel> {
-        TODO("Not yet implemented")
-    }
+    @GET("playlist")
+    suspend fun fetchAllPlaylists(): List<PlaylistModel>
 }
