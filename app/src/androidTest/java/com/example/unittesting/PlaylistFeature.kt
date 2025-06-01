@@ -12,6 +12,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.adevinta.android.barista.assertion.BaristaRecyclerViewAssertions
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.adevinta.android.barista.internal.matcher.DrawableMatcher.Companion.withDrawable
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -43,15 +44,30 @@ class PlaylistFeature {
 
         BaristaRecyclerViewAssertions.assertRecyclerViewItemCount(R.id.rv_playlist, 10)
 
-        onView(allOf(withId(R.id.tv_name), isDescendantOfA(nthChildOf(withId(R.id.rv_playlist), 0))))
+        onView(
+            allOf(
+                withId(R.id.tv_name),
+                isDescendantOfA(nthChildOf(withId(R.id.rv_playlist), 0))
+            )
+        )
             .check(matches(withText("Hard Rock Cafe")))
             .check(matches(isDisplayed()))
 
-        onView(allOf(withId(R.id.tv_category), isDescendantOfA(nthChildOf(withId(R.id.rv_playlist), 0))))
+        onView(
+            allOf(
+                withId(R.id.tv_category),
+                isDescendantOfA(nthChildOf(withId(R.id.rv_playlist), 0))
+            )
+        )
             .check(matches(withText("rock")))
             .check(matches(isDisplayed()))
 
-        onView(allOf(withId(R.id.iv_playlist), isDescendantOfA(nthChildOf(withId(R.id.rv_playlist), 0))))
+        onView(
+            allOf(
+                withId(R.id.iv_playlist),
+                isDescendantOfA(nthChildOf(withId(R.id.rv_playlist), 0))
+            )
+        )
             .check(matches(withDrawable(R.drawable.ic_playlist)))
             .check(matches(isDisplayed()))
 
@@ -73,5 +89,16 @@ class PlaylistFeature {
                         && parent.getChildAt(childPosition) == view)
             }
         }
+    }
+
+    @Test
+    fun displayLoaderWhileFetchingThePlaylists() {
+        assertDisplayed(R.id.loader)
+    }
+
+    @Test
+    fun hideLoaderAfterFetchingThePlaylists() {
+        Thread.sleep(4000)
+        assertNotDisplayed(R.id.loader)
     }
 }

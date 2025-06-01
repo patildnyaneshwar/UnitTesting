@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">UnitTesting</string>
+    <string name="desc_show_list_of_playlists">Show list of playlists</string>
 </resources>

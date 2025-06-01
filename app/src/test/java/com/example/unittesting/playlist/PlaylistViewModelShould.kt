@@ -2,12 +2,15 @@ package com.example.unittesting.playlist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.example.unittesting.utils.captureValues
 import com.example.unittesting.utils.getValueForTest
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -60,13 +63,18 @@ class PlaylistViewModelShould {
 
     @Test
     fun emitErrorWhenReceiveError() = runTest {
+        val viewModel = mockFailureCase()
+        assertEquals(expectedException, viewModel.playlists.getValueForTest()!!.exceptionOrNull())
+    }
+
+    private suspend fun mockFailureCase(): PlaylistViewModel {
         whenever(repository.getPlaylists()).thenReturn(
             flow { emit(Result.failure(expectedException)) }
         )
         val viewModel = PlaylistViewModel(repository)
 
         testDispatcher.scheduler.advanceUntilIdle()
-        assertEquals(expectedException, viewModel.playlists.getValueForTest()!!.exceptionOrNull())
+        return viewModel
     }
 
     private suspend fun mockSuccessfulCase(): PlaylistViewModel {
@@ -77,5 +85,47 @@ class PlaylistViewModelShould {
 
         testDispatcher.scheduler.advanceUntilIdle()
         return viewModel
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun showSpinnerWhileLoading() = runTest {
+        whenever(repository.getPlaylists()).thenReturn(
+            flow {
+                delay(1000)
+                emit(expectedPlaylists)
+            }
+        )
+        val viewModel = PlaylistViewModel(repository)
+
+        viewModel.loader.captureValues {
+            advanceTimeBy(100)
+            assertEquals(true, values.last())
+
+            testDispatcher.scheduler.advanceUntilIdle()
+            viewModel.playlists.getValueForTest()
+        }
+    }
+
+    @Test
+    fun hideSpinnerAfterLoadingCompleteSuccess() = runTest {
+        val viewModel = mockSuccessfulCase()
+
+        viewModel.loader.captureValues {
+            viewModel.playlists.getValueForTest()
+
+            assertEquals(false, values.last())
+        }
+    }
+
+    @Test
+    fun hideSpinnerAfterLoadingCompleteFailed() = runTest {
+        val viewModel = mockFailureCase()
+
+        viewModel.loader.captureValues {
+            viewModel.playlists.getValueForTest()
+
+            assertEquals(false, values.last())
+        }
     }
 }

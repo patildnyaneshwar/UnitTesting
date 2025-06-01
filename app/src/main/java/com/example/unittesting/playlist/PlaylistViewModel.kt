@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,11 +21,18 @@ class PlaylistViewModel @Inject constructor(
     private val _playlists: MutableLiveData<Result<List<PlaylistModel>>> by lazy { MutableLiveData<Result<List<PlaylistModel>>>() }
     val playlists: LiveData<Result<List<PlaylistModel>>> = _playlists
 
+    private val _loader: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>(false) }
+    val loader: LiveData<Boolean> = _loader
+
     init {
         viewModelScope.launch {
-            playlistRepository.getPlaylists().collect {
-                _playlists.value = it
-            }
+            _loader.postValue(true)
+            playlistRepository.getPlaylists()
+                .onEach {
+                    _loader.postValue(false)
+                }.collect {
+                    _playlists.postValue(it)
+                }
         }
     }
 }

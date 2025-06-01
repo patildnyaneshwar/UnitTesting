@@ -32,10 +32,6 @@ class PlaylistFragment : Fragment() {
 
     private val viewModel: PlaylistViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,6 +44,13 @@ class PlaylistFragment : Fragment() {
             rvPlaylist.layoutManager = LinearLayoutManager(requireContext())
             rvPlaylist.adapter = playlistAdapter
 
+        }
+
+        viewModel.loader.observe(this as LifecycleOwner) { isLoading ->
+            when (isLoading) {
+                true -> binding?.loader?.visibility = View.VISIBLE
+                false -> binding?.loader?.visibility = View.GONE
+            }
         }
 
         viewModel.playlists.observe(this as LifecycleOwner) { result ->
