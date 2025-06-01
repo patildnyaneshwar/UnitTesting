@@ -36,7 +36,7 @@ class PlaylistAdapter(
         fun bind(playlistModel: PlaylistModel) {
             binding.tvName.text = playlistModel.name
             binding.tvCategory.text = playlistModel.category
-            binding.ivPlaylist.setImageResource(R.drawable.ic_playlist)
+            binding.ivPlaylist.setImageResource(playlistModel.image)
         }
     }
 }

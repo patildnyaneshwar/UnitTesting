@@ -26,7 +26,7 @@ class PlaylistServiceShould {
 
     private val testDispatcher = StandardTestDispatcher()
     private val api: ApiService = mock()
-    private val playlist: List<PlaylistModel> = mock()
+    private val playlistRaw: List<PlaylistRawModel> = mock()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
@@ -50,10 +50,10 @@ class PlaylistServiceShould {
 
     @Test
     fun convertValuesToFlowResultAndEmitThem() = runTest {
-        whenever(api.fetchAllPlaylists()).thenReturn(playlist)
+        whenever(api.fetchAllPlaylists()).thenReturn(playlistRaw)
 
         val service = PlaylistService(api)
-        assertEquals(playlist, service.fetchPlaylists().first().getOrNull())
+        assertEquals(playlistRaw, service.fetchPlaylists().first().getOrNull())
     }
 
     @Test

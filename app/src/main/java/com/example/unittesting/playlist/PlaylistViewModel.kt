@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlaylistViewModel @Inject constructor(
-    private val playlistRepository: PlaylistRepository
+    private val playlistRepository: PlaylistRepository,
 ) : ViewModel() {
 
 //    val playlists = liveData {
