@@ -1,6 +1,5 @@
 package com.example.unittesting.remote
 
-import com.example.unittesting.playlist.PlaylistModel
 import com.example.unittesting.playlist.PlaylistRawModel
 import retrofit2.http.GET
 

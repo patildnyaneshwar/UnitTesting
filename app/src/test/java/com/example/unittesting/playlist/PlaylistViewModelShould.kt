@@ -71,7 +71,7 @@ class PlaylistViewModelShould {
         whenever(repository.getPlaylists()).thenReturn(
             flow { emit(Result.failure(expectedException)) }
         )
-        val viewModel = PlaylistViewModel(repository)
+        val viewModel = playlistViewModel()
 
         testDispatcher.scheduler.advanceUntilIdle()
         return viewModel
@@ -81,7 +81,7 @@ class PlaylistViewModelShould {
         whenever(repository.getPlaylists()).thenReturn(
             flow { emit(expectedPlaylists) }
         )
-        val viewModel = PlaylistViewModel(repository)
+        val viewModel = playlistViewModel()
 
         testDispatcher.scheduler.advanceUntilIdle()
         return viewModel
@@ -96,7 +96,7 @@ class PlaylistViewModelShould {
                 emit(expectedPlaylists)
             }
         )
-        val viewModel = PlaylistViewModel(repository)
+        val viewModel = playlistViewModel()
 
         viewModel.loader.captureValues {
             advanceTimeBy(100)
@@ -105,6 +105,12 @@ class PlaylistViewModelShould {
             testDispatcher.scheduler.advanceUntilIdle()
             viewModel.playlists.getValueForTest()
         }
+    }
+
+    private fun playlistViewModel(): PlaylistViewModel {
+        val viewModel = PlaylistViewModel(repository, testDispatcher)
+        viewModel.loadPlaylists()
+        return viewModel
     }
 
     @Test

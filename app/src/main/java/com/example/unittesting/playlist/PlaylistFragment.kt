@@ -10,12 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.unittesting.databinding.FragmentPlaylistBinding
-import com.example.unittesting.remote.ApiService
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 /**
  * A simple [Fragment] subclass.
@@ -46,16 +41,30 @@ class PlaylistFragment : Fragment() {
 
         }
 
-        viewModel.loader.observe(this as LifecycleOwner) { isLoading ->
+        observers()
+
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.loadPlaylists()
+    }
+
+    private fun observers() {
+        viewModel.loader.observe(viewLifecycleOwner) { isLoading ->
             when (isLoading) {
                 true -> binding?.loader?.visibility = View.VISIBLE
                 false -> binding?.loader?.visibility = View.GONE
             }
         }
 
-        viewModel.playlists.observe(this as LifecycleOwner) { result ->
+        viewModel.playlists.observe(viewLifecycleOwner) { result ->
             if (result.isSuccess) {
-                result.map { playlistAdapter.submitList(it) }
+                result.map {
+                    playlistAdapter.submitList(it)
+                }
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -64,8 +73,6 @@ class PlaylistFragment : Fragment() {
                 ).show()
             }
         }
-
-        return binding?.root
     }
 
     companion object {
