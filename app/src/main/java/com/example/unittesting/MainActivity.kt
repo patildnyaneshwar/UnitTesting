@@ -32,10 +32,5 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .add(binding.containerFragment.id, PlaylistFragment.newInstance())
-                .commit()
-        }
     }
 }

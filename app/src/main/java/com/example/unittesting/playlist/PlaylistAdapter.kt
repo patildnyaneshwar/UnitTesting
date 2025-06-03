@@ -7,7 +7,8 @@ import com.example.unittesting.R
 import com.example.unittesting.databinding.ItemPlaylistBinding
 
 class PlaylistAdapter(
-    private var list: List<PlaylistModel> = emptyList()
+    private var list: List<PlaylistModel> = emptyList(),
+    private val listener: (String) -> Unit
 ) : RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
 
     fun submitList(list: List<PlaylistModel>) {
@@ -30,13 +31,15 @@ class PlaylistAdapter(
         holder.bind(playlistModel)
     }
 
-    inner class ViewHolder(private val binding: ItemPlaylistBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(
+        private val binding: ItemPlaylistBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(playlistModel: PlaylistModel) {
             binding.tvName.text = playlistModel.name
             binding.tvCategory.text = playlistModel.category
             binding.ivPlaylist.setImageResource(playlistModel.image)
+            binding.itemPlaylistRoot.setOnClickListener { listener(playlistModel.id) }
         }
     }
 }

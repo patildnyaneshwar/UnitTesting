@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -146,5 +147,19 @@ class PlaylistFeature {
     fun hideLoaderAfterFetchingThePlaylists() {
         Thread.sleep(4000)
         assertNotDisplayed(R.id.loader)
+    }
+
+    @Test
+    fun navigateToDetailsScreen() {
+        Thread.sleep(4000)
+
+        onView(
+            allOf(
+                withId(R.id.iv_playlist),
+                isDescendantOfA(nthChildOf(withId(R.id.rv_playlist), 0))
+            )
+        ).perform(click())
+
+        assertDisplayed(R.id.playlist_details_root)
     }
 }

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.unittesting.databinding.FragmentPlaylistBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +36,11 @@ class PlaylistFragment : Fragment() {
         _binding = FragmentPlaylistBinding.inflate(inflater, container, false)
         binding?.apply {
 
-            playlistAdapter = PlaylistAdapter()
+            playlistAdapter = PlaylistAdapter { id ->
+                val action =
+                    PlaylistFragmentDirections.actionPlaylistFragmentToPlaylistDetailFragment(id)
+                findNavController().navigate(action)
+            }
             rvPlaylist.layoutManager = LinearLayoutManager(requireContext())
             rvPlaylist.adapter = playlistAdapter
 
