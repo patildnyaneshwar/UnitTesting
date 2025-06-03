@@ -36,7 +36,6 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @HiltAndroidTest
-@UninstallModules(CoroutinesModule::class)
 @RunWith(AndroidJUnit4::class)
 class PlaylistFeature {
 
@@ -64,7 +63,8 @@ class PlaylistFeature {
 
     @Test
     fun displayListOfPlaylists() {
-//        Thread.sleep(4000)
+        Thread.sleep(4000)
+
         BaristaRecyclerViewAssertions.assertRecyclerViewItemCount(R.id.rv_playlist, 10)
 
         onView(
@@ -103,6 +103,7 @@ class PlaylistFeature {
 
     @Test
     fun displayRockImageForRockListItems() {
+        Thread.sleep(4000)
 
         onView(
             allOf(
@@ -143,6 +144,7 @@ class PlaylistFeature {
 
     @Test
     fun hideLoaderAfterFetchingThePlaylists() {
+        Thread.sleep(4000)
         assertNotDisplayed(R.id.loader)
     }
 }

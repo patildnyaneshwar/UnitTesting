@@ -1,19 +1,20 @@
 package com.example.unittesting.utils
 
+import com.example.unittesting.remote.CoroutinesModule
 import com.example.unittesting.remote.DefaultDispatcher
 import com.example.unittesting.remote.IoDispatcher
 import com.example.unittesting.remote.MainDispatcher
 import com.example.unittesting.remote.UnconfinedDispatcher
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@TestInstallIn(components = [SingletonComponent::class], replaces = [CoroutinesModule::class])
 object TestCoroutinesModule {
 
     @Provides
