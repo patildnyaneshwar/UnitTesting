@@ -1,7 +1,9 @@
 package com.example.unittesting.playlist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
+import com.example.unittesting.features.playlist.model.PlaylistModel
+import com.example.unittesting.features.playlist.repository.PlaylistRepository
+import com.example.unittesting.features.playlist.viewmodel.PlaylistViewModel
 import com.example.unittesting.utils.captureValues
 import com.example.unittesting.utils.getValueForTest
 import junit.framework.TestCase.assertEquals

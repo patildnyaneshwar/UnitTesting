@@ -1,6 +1,8 @@
-package com.example.unittesting.playlist
+package com.example.unittesting.features.playlist.mapper
 
 import com.example.unittesting.R
+import com.example.unittesting.features.playlist.model.PlaylistModel
+import com.example.unittesting.features.playlist.model.PlaylistRawModel
 import javax.inject.Inject
 
 class PlaylistMapper @Inject constructor() :

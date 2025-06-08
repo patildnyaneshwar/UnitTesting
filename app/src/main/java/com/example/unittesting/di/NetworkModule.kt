@@ -1,5 +1,6 @@
-package com.example.unittesting.remote
+package com.example.unittesting.di
 
+import com.example.unittesting.remote.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

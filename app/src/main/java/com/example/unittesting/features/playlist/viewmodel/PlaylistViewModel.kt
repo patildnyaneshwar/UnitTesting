@@ -1,10 +1,12 @@
-package com.example.unittesting.playlist
+package com.example.unittesting.features.playlist.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.unittesting.remote.IoDispatcher
+import com.example.unittesting.features.playlist.repository.PlaylistRepository
+import com.example.unittesting.features.playlist.model.PlaylistModel
+import com.example.unittesting.di.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.onEach

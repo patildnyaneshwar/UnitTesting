@@ -1,10 +1,10 @@
 package com.example.unittesting.utils
 
-import com.example.unittesting.remote.CoroutinesModule
-import com.example.unittesting.remote.DefaultDispatcher
-import com.example.unittesting.remote.IoDispatcher
-import com.example.unittesting.remote.MainDispatcher
-import com.example.unittesting.remote.UnconfinedDispatcher
+import com.example.unittesting.di.CoroutinesModule
+import com.example.unittesting.di.DefaultDispatcher
+import com.example.unittesting.di.IoDispatcher
+import com.example.unittesting.di.MainDispatcher
+import com.example.unittesting.di.UnconfinedDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent

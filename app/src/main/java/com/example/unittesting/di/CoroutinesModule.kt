@@ -1,4 +1,4 @@
-package com.example.unittesting.remote
+package com.example.unittesting.di
 
 import dagger.Module
 import dagger.Provides

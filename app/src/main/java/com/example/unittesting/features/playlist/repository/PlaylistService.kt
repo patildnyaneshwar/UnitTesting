@@ -1,5 +1,6 @@
-package com.example.unittesting.playlist
+package com.example.unittesting.features.playlist.repository
 
+import com.example.unittesting.features.playlist.model.PlaylistRawModel
 import com.example.unittesting.remote.ApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

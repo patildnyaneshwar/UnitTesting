@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/playlistFragment"
-        android:name="com.example.unittesting.playlist.PlaylistFragment"
+        android:name="com.example.unittesting.features.playlist.view.PlaylistFragment"
         android:label="fragment_playlist"
         tools:layout="@layout/fragment_playlist">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/playlistDetailFragment"
-        android:name="com.example.unittesting.PlaylistDetailFragment"
+        android:name="com.example.unittesting.features.playlist_details.PlaylistDetailFragment"
         android:label="fragment_playlist_detail"
         tools:layout="@layout/fragment_playlist_detail">
         <argument

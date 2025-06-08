@@ -1,10 +1,10 @@
-package com.example.unittesting.playlist
+package com.example.unittesting.features.playlist.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.unittesting.R
 import com.example.unittesting.databinding.ItemPlaylistBinding
+import com.example.unittesting.features.playlist.model.PlaylistModel
 
 class PlaylistAdapter(
     private var list: List<PlaylistModel> = emptyList(),
