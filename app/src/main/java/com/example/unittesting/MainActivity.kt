@@ -27,9 +27,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         setSupportActionBar(binding.toolBar)
-        supportActionBar?.title = "Playlists"
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
 
     }
 }

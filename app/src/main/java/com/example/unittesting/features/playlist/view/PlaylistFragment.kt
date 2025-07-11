@@ -34,6 +34,8 @@ class PlaylistFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentPlaylistBinding.inflate(inflater, container, false)
+
+        requireActivity().title = "Playlist"
         binding?.apply {
 
             playlistAdapter = PlaylistAdapter { id ->
